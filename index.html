@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ms" data-style-switcher-options="{'showBordersStyle': true, 'showLayoutStyle': false, 'showBackgroundColor': false, 'colorPrimary': '#4246fd', 'colorSecondary': '#881cf9', 'colorTertiary': '#f5f3fb', 'colorQuaternary': '#222529'}">
+	<head>
+
+		<!-- Basic -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+
+		<title>AuditKita — Audit Dalaman Tanpa Memo Hilang</title>
+
+		<meta name="keywords" content="audit dalaman, sistem audit, dashboard audit, sektor awam, PBT" />
+		<meta name="description" content="AuditKita — import memo, tugaskan penemuan, jejak respons, automatik dari mula hingga selesai. Dibina untuk audit dalaman sektor awam Malaysia.">
+		<meta name="author" content="AuditKita">
+
+		<!--
+			ASSET NOTE (favicon): no favicon file exists yet — add img/favicon.ico and
+			img/apple-touch-icon.png, then uncomment the two lines below.
+		-->
+		<!-- <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" /> -->
+		<!-- <link rel="apple-touch-icon" href="img/apple-touch-icon.png"> -->
+
+		<!-- Web Fonts (loaded from Google Fonts CDN — requires an internet connection) -->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light&display=swap" rel="stylesheet" type="text/css">
+
+		<!--
+			Vendor + Theme CSS — Porto "Demo App Landing" theme files, trimmed to only
+			what this page actually uses (Bootstrap, animate.css, theme core/elements,
+			the demo-app-landing overrides, and the blue/purple skin). FontAwesome,
+			simple-line-icons, owl.carousel and magnific-popup were dropped since
+			nothing on this page uses them anymore (icons are inline SVG instead).
+		-->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/animate.compat.css">
+		<link rel="stylesheet" href="css/theme.css">
+		<link rel="stylesheet" href="css/theme-elements.css">
+
+		<!-- Demo (App Landing) CSS -->
+		<link rel="stylesheet" href="css/demo-app-landing.css">
+
+		<!-- Skin CSS (Porto's default blue/purple skin — colors defined here) -->
+		<link rel="stylesheet" href="css/skin-app-landing.css">
+
+		<!--
+			Custom additions — ONLY for pieces the Porto demo-app-landing theme has no
+			ready-made component for: the audit "finding card" dashboard preview, the
+			tablet device frame (replacing Porto's phone/bg-smartphone.png mockup with
+			the tablet mockup image), the department-collaboration diagram, and the
+			WhatsApp button. Every other section on this page uses Porto's own classes
+			from the stylesheets above — nothing else is overridden.
+		-->
+		<style>
+			/* Tablet device mockup (hero) — uses assets/tablet-mockup.jpg */
+			.custom-tablet-1{
+				position:relative;width:100%;max-width:460px;margin:0 auto;
+				aspect-ratio:612/344;
+				background-image:url('assets/tablet-mockup.jpg');
+				background-size:100% 100%;background-repeat:no-repeat;
+			}
+			.tablet-screen{
+				position:absolute;left:13.5%;top:9%;width:73%;height:83%;
+				overflow:hidden;border-radius:3px;
+			}
+
+			/* "Kenapa AuditKita" letter badges (text mark instead of an icon image) */
+			.why-badge{
+				flex:none;width:3.4em;height:3.4em;border-radius:.75rem;
+				background:var(--tertiary);border:1px solid var(--tertiary-200);
+				display:flex;align-items:center;justify-content:center;
+				color:var(--primary);font-weight:800;font-size:.85rem;letter-spacing:.02em;
+			}
+
+			/* Step connector row (Import → Semak → Lulus → ... → Selesai) */
+			.flow-steps{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:0}
+			.flow-step-item{display:flex;flex-direction:column;align-items:center;text-align:center;width:86px}
+			.flow-step-num{
+				width:44px;height:44px;border-radius:50%;border:2px solid var(--primary);
+				display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--primary);
+				background:#fff;flex:none;
+			}
+			.flow-step-item h4{font-size:1.2em;font-weight:700;margin-top:10px;margin-bottom:2px}
+			.flow-step-item p{font-size:1.2em;color:var(--grey-1000);margin:0}
+			.flow-step-connect{flex:1 1 14px;min-width:10px;max-width:30px;margin-top:21px;border-top:2px dashed var(--grey-400)}
+			@media (max-width:767px){
+				.flow-steps{flex-direction:column;align-items:flex-start;gap:1.25rem}
+				.flow-step-item{flex-direction:row;text-align:left;width:auto;gap:.85rem}
+				.flow-step-item h4,.flow-step-item p{margin-top:0}
+				.flow-step-connect{display:none}
+			}
+
+			/*
+				Porto's .feature-box-icon is a fixed 2.7em circle sized for an icon-font
+				glyph — too small/cramped for a raw inline SVG. This lets the footer
+				newsletter icon sit at its natural size, matching the demo app landing
+				icon + heading layout (icon left, generous gap, vertically centered).
+			*/
+			.feature-box-icon-svg{
+				width:auto;height:auto;flex:none;background:transparent;padding:0;top:0;margin-right:.5rem;
+			}
+
+			/* WhatsApp floating button — no equivalent component in the Porto theme */
+			.wa-fab{
+				position:fixed;right:1.25rem;bottom:1.25rem;z-index:1030;
+				width:3.4rem;height:3.4rem;border-radius:99px;background:#25D366;
+				display:flex;align-items:center;justify-content:center;
+				box-shadow:0 6px 20px rgba(37,211,102,.45), 0 2px 6px rgba(0,0,0,.2);
+			}
+			.wa-fab svg{width:1.6rem;height:1.6rem;fill:#fff}
+		</style>
+
+	</head>
+
+	<body data-plugin-scroll-spy data-plugin-options="{'target': '#header'}">
+
+		<div class="body">
+
+			<header id="header" class="header-transparent header-transparent-light-bottom-border header-transparent-light-bottom-border-1 header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
+				<div class="header-body border-top-0 header-body-bottom-border">
+					<div class="header-container container">
+						<div class="header-row">
+							<div class="header-column">
+								<div class="header-row">
+									<div class="header-logo">
+										<a href="#top" class="d-flex align-items-center text-decoration-none">
+											<img src="assets/auditkita-icon.png" alt="AuditKita" height="40" class="me-2">
+											<span class="d-none d-sm-inline-block font-weight-bold text-color-dark text-4">AuditKita</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="header-column justify-content-end">
+								<div class="header-row">
+									<div class="header-nav header-nav-links">
+										<div class="header-nav-main header-nav-main-text-capitalize header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
+											<nav class="collapse">
+												<ul class="nav nav-pills" id="mainNav">
+													<li><a href="#masalah" class="nav-link active" data-hash data-hash-offset="0" data-hash-offset-lg="70">Cabaran</a></li>
+													<li><a href="#aliran" class="nav-link active" data-hash data-hash-offset="0" data-hash-offset-lg="70">Cara Berfungsi</a></li>
+													<li><a href="#ciri" class="nav-link active" data-hash data-hash-offset="0" data-hash-offset-lg="70">Ciri-ciri</a></li>
+													<li><a href="#kenapa" class="nav-link active" data-hash data-hash-offset="0" data-hash-offset-lg="70">Kenapa AuditKita</a></li>
+													<li><a href="#faq" class="nav-link active" data-hash data-hash-offset="0" data-hash-offset-lg="70">Soalan Lazim</a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+									<a href="#demo" class="btn btn-secondary btn-outline font-weight-bold text-2 py-2 px-3 px-md-4 ms-2 ms-md-3 d-inline-flex flex-shrink-0">Minta Demo</a>
+									<button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<div role="main" class="main">
+
+				<!-- OVERVIEW / HERO -->
+				<section id="overview" class="section bg-transparent border-0 py-5 m-0 p-relative">
+
+					<div class="opacity-2"><div class="custom-el custom-el-circle border-color-primary appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="0" data-appear-animation-duration="3s" style="top: 20%; left: 50%; width: 38px; height: 38px;"></div></div>
+					<div class="opacity-2"><div class="custom-el custom-el-circle border-color-secondary appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200" data-appear-animation-duration="3s" style="top: 27%; left: 55%; width: 15px; height: 15px;"></div></div>
+					<div class="opacity-2"><div class="custom-el custom-el-rounded-rectangle custom-rotate-45 custom-el-blur-1 border-color-primary appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="800" data-appear-animation-duration="3s" style="top: 64%; left: 56%; width: 18px; height: 18px;"></div></div>
+
+					<div class="container pt-lg-5">
+						<div class="row pt-5 mt-5 pt-lg-5 align-items-center">
+							<div class="col-lg-8 text-center text-lg-start">
+								<h2 class="text-color-primary positive-ls-3 font-weight-bold text-uppercase text-4 line-height-3 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="500" data-plugin-options="{'minWindowWidth': 0}">Sistem Pengurusan Audit Dalaman</h2>
+
+								<h1 class="custom-font-size-1 text-color-dark font-weight-bold line-height-1 py-3 mb-1 p-relative appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="750" data-plugin-options="{'minWindowWidth': 0}"><span class="p-relative z-index-1">Audit dalaman jabatan anda, dalam satu sistem.</span><span class="custom-stroke-text-effect-1 opacity-2 p-absolute text-10 right-0 me-4">AK</span></h1>
+
+								<p class="text-4-5 font-weight-medium mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1000" data-plugin-options="{'minWindowWidth': 0}">Import memo, tugaskan penemuan, jejak respons — automatik dari mula hingga selesai.</p>
+
+								<a href="#demo" class="btn btn-secondary positive-ls-2 btn-outline font-weight-bold text-2 btn-py-3 px-5 mt-2 me-3 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}">MINTA DEMO</a>
+								<a href="#ciri" class="font-weight-bold text-color-dark text-decoration-none mt-2 d-inline-flex align-items-center appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="350" data-plugin-options="{'minWindowWidth': 0}">Lihat Ciri-ciri</a>
+
+								<p class="pt-2 mt-0 mb-0 text-3-5">
+									<span class="d-inline-block pe-4 mb-2 mb-sm-0"><strong class="text-color-dark">.docx → digital</strong> dalam saat</span>
+									<span class="d-inline-block pe-4 mb-2 mb-sm-0"><strong class="text-color-dark">5</strong> peranan kawalan akses</span>
+								</p>
+								<p class="d-flex align-items-center justify-content-center justify-content-lg-start flex-wrap">
+									<strong class="positive-ls-2 text-uppercase d-inline-block pe-4 text-2">Digunakan Oleh:</strong>
+									<img class="d-inline-block" src="assets/mps-logo.png" alt="Majlis Perbandaran Selayang" width="110" height="110" />
+								</p>
+							</div>
+							<div class="col-lg-4 pt-5 pt-lg-0 text-center">
+
+								<div class="p-relative m-auto" style="max-width:460px;">
+									<!-- ASSET NOTE: swap assets/tablet-mockup.jpg for your own tablet mockup with the dashboard content baked in, or fill .tablet-screen with your own content. -->
+									<div class="custom-tablet-1 reveal appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="300">
+										<div class="tablet-screen"></div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</section>
+
+				<!-- CTA RIBBON -->
+				<section class="call-to-action custom-call-to-action call-to-action-dark mb-5">
+					<div class="container">
+						<div class="row p-3 p-md-0">
+							<div class="col-lg-8">
+								<div class="call-to-action-content mx-auto m-lg-0">
+									<h3 class="mb-1 font-weight-semi-bold">Sedia digunakan <strong class="font-weight-bold">tanpa pemasangan rumit.</strong></h3>
+									<p class="mb-0 opacity-7">Mula dengan memo audit sedia ada anda — pasukan kami bantu sediakan dalam satu sesi onboarding.</p>
+								</div>
+							</div>
+							<div class="col-lg-4 text-center text-lg-start">
+								<div class="call-to-action-btn mx-auto mt-0 mt-md-4 m-lg-0">
+									<a href="#demo" class="d-inline-flex align-items-center btn btn-gradient text-uppercase positive-ls-2 font-weight-bold text-2 btn-py-3 px-3 px-sm-5">
+										Minta Demo
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- CARA IA BERFUNGSI -->
+				<section id="aliran" class="py-3 py-lg-5">
+					<div class="container">
+
+						<div class="row">
+							<div class="col-lg-8 mx-auto text-center appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="100">
+
+								<h2 class="text-color-dark font-weight-bold text-10 mb-4-5">Cara Ia Berfungsi</h2>
+
+								<p class="font-weight-medium text-4-5 line-height-6 negative-ls-05">Tujuh langkah, satu penemuan dijejak sepenuhnya.</p>
+
+								<p class="text-3-5 mb-0">Setiap penemuan melalui laluan yang sama dari mula hingga akhir — jelas, tersusun, dan <span class="highlight highlight-primary px-0 highlight-bg-opacity highlight-animated" data-appear-animation="highlight-animated-start" data-appear-animation-delay="2000" data-plugin-options="{'flagClassOnly': true}">boleh disemak pada bila-bila masa</span>.</p>
+
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-12 text-center">
+								<div class="py-5">
+									<div class="flow-steps">
+										<div class="flow-step-item appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="100">
+											<div class="flow-step-num">01</div>
+											<h4>Import</h4>
+											<p>Juru Audit muat naik memo Word.</p>
+										</div>
+										<div class="flow-step-connect"></div>
+										<div class="flow-step-item appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+											<div class="flow-step-num">02</div>
+											<h4>Semak</h4>
+											<p>Kandungan disemak &amp; disunting.</p>
+										</div>
+										<div class="flow-step-connect"></div>
+										<div class="flow-step-item appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300">
+											<div class="flow-step-num">03</div>
+											<h4>Lulus</h4>
+											<p>Pengarah JAD meluluskan memo.</p>
+										</div>
+										<div class="flow-step-connect"></div>
+										<div class="flow-step-item appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+											<div class="flow-step-num">04</div>
+											<h4>Tugaskan</h4>
+											<p>Penemuan ditugaskan ke jabatan.</p>
+										</div>
+										<div class="flow-step-connect"></div>
+										<div class="flow-step-item appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="500">
+											<div class="flow-step-num">05</div>
+											<h4>Respons</h4>
+											<p>Auditee respons secara kolaboratif.</p>
+										</div>
+										<div class="flow-step-connect"></div>
+										<div class="flow-step-item appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
+											<div class="flow-step-num">06</div>
+											<h4>Ulasan</h4>
+											<p>Juru Audit menilai dengan lampu isyarat.</p>
+										</div>
+										<div class="flow-step-connect"></div>
+										<div class="flow-step-item appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="700">
+											<div class="flow-step-num">07</div>
+											<h4>Selesai</h4>
+											<p>Pengarah JAD lulus penutupan.</p>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</section>
+
+				<div class="py-4">
+					<hr>
+				</div>
+
+				<!-- STATS -->
+				<section class="section bg-transparent border-0 m-0 py-0 py-lg-5 p-relative">
+					<div class="container">
+						<div class="row counters text-center">
+							<div class="col-lg-4 mb-5 mb-lg-0 appear-animation" data-appear-animation="fadeInLeftShorterPlus" data-appear-animation-delay="500">
+								<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="mb-2"><path d="M4 19V10M11 19V5M18 19v-7"/><path d="M3 19h18"/></svg>
+								<div class="counter">
+									<strong class="text-color-dark text-10 negative-ls-2" data-to="7">0</strong>
+									<label class="text-color-dark font-weight-semibold text-4 opacity-6 mb-0 line-height-1">Peringkat aliran kerja diautomasikan</label>
+								</div>
+							</div>
+							<div class="col-lg-4 mb-5 mb-lg-0 appear-animation" data-appear-animation="fadeInLeftShorterPlus" data-appear-animation-delay="300">
+								<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="mb-2"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.1 7.1 15.9 11M8.1 16.9 15.9 13"/></svg>
+								<div class="counter">
+									<strong class="text-color-dark text-10 negative-ls-2" data-to="5">0</strong>
+									<label class="text-color-dark font-weight-semibold text-4 opacity-6 mb-0 line-height-1">Peranan akses, setiap satu nampak apa yang relevan</label>
+								</div>
+							</div>
+							<div class="col-lg-4 mb-3 mb-sm-0 appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="300">
+								<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="mb-2"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg>
+								<div class="counter">
+									<strong class="text-color-dark text-10 negative-ls-2" data-to="4">0</strong>
+									<label class="text-color-dark font-weight-semibold text-4 opacity-6 mb-0 line-height-1">Penyedia AI disokong — Anthropic, OpenAI, Deepseek, Gemini</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<div class="py-4">
+					<hr>
+				</div>
+
+				<!-- CABARAN SEDIA ADA -->
+				<section id="masalah" class="py-3 py-lg-5">
+					<div class="container">
+
+						<div class="row">
+							<div class="col text-center appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="100">
+								<h2 class="text-color-dark font-weight-bold text-10 mb-4-5">Cabaran Sedia Ada</h2>
+								<p class="font-weight-medium text-4-5 line-height-6 negative-ls-05 mb-5">Masalah yang sering dihadapi oleh Ketua Audit Dalam dan pasukan mereka apabila bergantung sepenuhnya kepada dokumen Word dan e-mel.</p>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-3 col-sm-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="100">
+								<div class="card card-default h-100 p-4 text-center text-lg-start">
+									<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#d9534f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3 mx-auto mx-lg-0"><path d="M3 7l9 6 9-6M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/><path d="M15.5 15.5 19 19m0-3.5-3.5 3.5"/></svg>
+									<h4 class="text-4-5 font-weight-bold mb-2">Memo hilang dalam e-mel</h4>
+									<p class="text-3-5 mb-0">Penemuan audit tertimbus dalam berpuluh e-mel dan sukar dikesan bila diperlukan semula.</p>
+								</div>
+							</div>
+							<div class="col-lg-3 col-sm-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+								<div class="card card-default h-100 p-4 text-center text-lg-start">
+									<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#d9534f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3 mx-auto mx-lg-0"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v.01M11 11v3"/></svg>
+									<h4 class="text-4-5 font-weight-bold mb-2">Tiada penjejakan status</h4>
+									<p class="text-3-5 mb-0">Tiada siapa tahu dengan pasti jabatan mana sudah respons dan mana yang masih tertunggak.</p>
+								</div>
+							</div>
+							<div class="col-lg-3 col-sm-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300">
+								<div class="card card-default h-100 p-4 text-center text-lg-start">
+									<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#d9534f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3 mx-auto mx-lg-0"><path d="M7 3h8l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M15 3v4h4M9 12h6M9 15h6M9 9h2"/></svg>
+									<h4 class="text-4-5 font-weight-bold mb-2">Proses ekstrak manual</h4>
+									<p class="text-3-5 mb-0">Setiap penemuan perlu ditaip semula satu demi satu daripada dokumen Word yang panjang.</p>
+								</div>
+							</div>
+							<div class="col-lg-3 col-sm-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+								<div class="card card-default h-100 p-4 text-center text-lg-start">
+									<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#d9534f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3 mx-auto mx-lg-0"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="M9 12h6"/></svg>
+									<h4 class="text-4-5 font-weight-bold mb-2">Tiada rekod akauntabiliti</h4>
+									<p class="text-3-5 mb-0">Tiada audit trail lengkap untuk pematuhan apabila tindakan perlu disemak semula.</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</section>
+
+				<div class="py-4">
+					<hr>
+				</div>
+
+				<!-- CIRI-CIRI (zigzag grid) -->
+				<section id="ciri" class="py-3 py-lg-5">
+					<div class="container">
+
+						<div class="row align-items-center">
+							<div class="col appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="100">
+
+								<div class="text-center">
+									<h2 class="text-color-dark font-weight-bold text-10 mb-4-5">Ciri-ciri Utama</h2>
+									<p class="font-weight-medium text-4-5 line-height-6 negative-ls-05">Ciri-ciri yang sudah dibina dan berfungsi — bukan pelan masa depan.</p>
+								</div>
+
+								<div class="row pt-3">
+									<div class="col-lg-6">
+										<div class="feature-box feature-box-style-6 custom-feature-box-1 reverse">
+											<div class="feature-box-icon">
+												<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="mt-1"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg>
+											</div>
+											<div class="feature-box-info">
+												<h4 class="text-5 font-weight-bold mb-1 mt-3">Import Memo Automatik</h4>
+												<p class="mb-4 text-3-5 font-weight-medium">Muat naik memo Word — sistem ekstrak setiap penemuan, perenggan, jadual dan imej secara automatik.</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-6 text-start">
+										<div class="feature-box feature-box-style-6 custom-feature-box-1">
+											<div class="feature-box-icon">
+												<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg>
+											</div>
+											<div class="feature-box-info">
+												<h4 class="text-5 font-weight-bold mb-1 mt-3">Bantuan AI (AI Assist)</h4>
+												<p class="mb-4 text-3-5 font-weight-medium">Cadangan automatik untuk kategori, risiko, jabatan bertanggungjawab &amp; tindakan pembetulan — kelulusan tetap manual.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row pt-3">
+									<div class="col-lg-6">
+										<div class="feature-box feature-box-style-6 custom-feature-box-1 reverse">
+											<div class="feature-box-icon">
+												<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.1 7.1 15.9 11M8.1 16.9 15.9 13"/></svg>
+											</div>
+											<div class="feature-box-info">
+												<h4 class="text-5 font-weight-bold mb-1 mt-3">Tugasan Berbilang Jabatan</h4>
+												<p class="mb-4 text-3-5 font-weight-medium">Satu penemuan boleh ditugaskan kepada lebih dari satu jabatan serentak, dengan tarikh akhir tersendiri.</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-6 text-start">
+										<div class="feature-box feature-box-style-6 custom-feature-box-1">
+											<div class="feature-box-icon">
+												<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/><path d="m8 17 1.5 1.5L12 16" stroke="#e0a100"/></svg>
+											</div>
+											<div class="feature-box-info">
+												<h4 class="text-5 font-weight-bold mb-1 mt-3">Pusat Tugasan Peribadi</h4>
+												<p class="mb-4 text-3-5 font-weight-medium">"Tugasan Saya" memaparkan tindakan tertunggak yang relevan kepada peranan anda sahaja, dengan pautan terus.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row pt-3">
+									<div class="col-lg-6">
+										<div class="feature-box feature-box-style-6 custom-feature-box-1 reverse">
+											<div class="feature-box-icon">
+												<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+											</div>
+											<div class="feature-box-info">
+												<h4 class="text-5 font-weight-bold mb-1 mt-3">Notifikasi Automatik</h4>
+												<p class="mb-4 text-3-5 font-weight-medium">Makluman dalam-aplikasi &amp; e-mel pada setiap peringkat aliran kerja — dari memo dihantar hingga peringatan tertunggak.</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-6 text-start">
+										<div class="feature-box feature-box-style-6 custom-feature-box-1">
+											<div class="feature-box-icon">
+												<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V10M11 19V5M18 19v-7"/><path d="M3 19h18"/></svg>
+											</div>
+											<div class="feature-box-info">
+												<h4 class="text-5 font-weight-bold mb-1 mt-3">Dashboard Pentadbir</h4>
+												<p class="mb-0 mb-lg-4 text-3-5 font-weight-medium">Statistik pengguna, kesihatan sistem, analitik trafik dan penggunaan AI — mengikut fungsi dan kadar kejayaan.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</section>
+
+				<div class="py-4">
+					<hr>
+				</div>
+
+				<!-- ALTERNATING CONTENT BLOCKS: KOLABORASI + KETELUSAN -->
+				<section class="py-3 py-lg-5 p-relative">
+					<div class="container">
+
+						<div class="row align-items-center pb-5 pb-lg-0 mb-3 mb-lg-0">
+							<div class="col-lg-5 text-center appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="100">
+								<!-- ASSET NOTE: placeholder tablet mockup — swap for your own tablet content image when ready -->
+								<img src="assets/tablet-mockup.jpg" class="img-fluid" alt="">
+							</div>
+							<div class="col-lg-7 text-center text-lg-start appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="100">
+
+								<h2 class="text-color-dark font-weight-bold text-10 mb-4-5">Kolaborasi Tanpa Geseran Antara Jabatan</h2>
+
+								<p class="font-weight-medium text-4-5 line-height-6 negative-ls-05">Bila penemuan ditugaskan kepada berbilang jabatan, setiap auditee respons terus dalam sistem.</p>
+
+								<p class="text-3-5 mb-0">Tiada rantaian e-mel bersilang, tiada salinan dokumen berulang — <span class="highlight highlight-primary px-0 highlight-bg-opacity highlight-animated" data-appear-animation="highlight-animated-start" data-appear-animation-delay="2000" data-plugin-options="{'flagClassOnly': true}">semuanya kekal dalam satu penemuan</span>.</p>
+
+								<a href="#ciri" class="btn btn-secondary positive-ls-2 btn-outline font-weight-bold text-2 btn-py-3 px-5 mt-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}">LIHAT CIRI-CIRI</a>
+
+							</div>
+						</div>
+
+						<div class="row align-items-center mt-4">
+							<div class="col-lg-7 text-center text-lg-end appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="100">
+
+								<h2 class="text-color-dark font-weight-bold text-10 mb-4-5">Ketelusan &amp; Audit Trail Penuh</h2>
+
+								<p class="font-weight-medium text-4-5 line-height-6 negative-ls-05">Setiap kelulusan, tugasan dan respons direkod dengan cap masa.</p>
+
+								<p class="text-3-5 mb-0">Sedia disemak pada bila-bila masa oleh juruaudit luar atau jawatankuasa — <span class="highlight highlight-primary px-0 highlight-bg-opacity highlight-animated" data-appear-animation="highlight-animated-start" data-appear-animation-delay="2000" data-plugin-options="{'flagClassOnly': true}">tiada rekod yang hilang</span>.</p>
+
+								<a href="#kenapa" class="btn btn-secondary positive-ls-2 btn-outline font-weight-bold text-2 btn-py-3 px-5 mt-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}">LIHAT KENAPA AUDITKITA</a>
+
+							</div>
+							<div class="col-lg-5 text-center appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="100">
+								<!-- ASSET NOTE: placeholder tablet mockup — swap for your own tablet content image when ready -->
+								<img src="assets/tablet-mockup.jpg" class="img-fluid mt-4 mt-lg-0" alt="">
+							</div>
+						</div>
+
+					</div>
+				</section>
+
+				<!-- PRINSIP KAMI (dark statement band) -->
+				<section class="bg-dark py-5 my-5 p-relative z-index-2">
+					<div class="container">
+						<div class="row align-items-center py-5">
+							<div class="col text-center appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="100">
+								<h2 class="text-color-light font-weight-bold text-uppercase text-2 positive-ls-3 mb-4">Prinsip Kami</h2>
+								<p class="text-7 line-height-4 font-weight-semibold text-color-light mb-4 mx-auto" style="max-width:44rem;">AI membantu cadangkan — manusia yang meluluskan. Setiap keputusan audit kekal milik juruaudit anda.</p>
+								<p class="text-4 opacity-7 text-color-light mx-auto mb-0" style="max-width:36rem;">Cadangan kategori, risiko dan tindakan pembetulan daripada AI Assist sentiasa memerlukan kelulusan manual sebelum digunakan.</p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- KENAPA AUDITKITA -->
+				<section id="kenapa" class="py-5 my-5 p-relative">
+					<div class="container">
+
+						<div class="row">
+							<div class="col text-center mb-5">
+								<h2 class="text-color-dark font-weight-bold text-10 mb-4-5">Kenapa AuditKita</h2>
+								<p class="font-weight-medium text-4-5 line-height-6 negative-ls-05">Dibina untuk realiti audit sektor awam Malaysia.</p>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="100">
+								<div class="d-flex p-4 card card-default h-100">
+									<div class="why-badge me-3">BM</div>
+									<div>
+										<h4 class="text-4-5 font-weight-bold mb-1">Bahasa Melayu Penuh</h4>
+										<p class="text-3-5 mb-0">Antara muka dan terminologi dibina khusus untuk kakitangan sektor awam — bukan terjemahan tambahan.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+								<div class="d-flex p-4 card card-default h-100">
+									<div class="why-badge me-3">PBT</div>
+									<div>
+										<h4 class="text-4-5 font-weight-bold mb-1">Dibina Khusus Untuk Audit Sektor Awam</h4>
+										<p class="text-3-5 mb-0">Aliran kerja mengikut struktur sebenar PBT, kementerian dan badan berkanun — bukan pelan generik korporat.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-4 mb-lg-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300">
+								<div class="d-flex p-4 card card-default h-100">
+									<div class="why-badge me-3">RBAC</div>
+									<div>
+										<h4 class="text-4-5 font-weight-bold mb-1">Kawalan Akses Berperanan</h4>
+										<p class="text-3-5 mb-0">5 peranan — Pentadbir Sistem, Pengarah JAD, Juru Audit, Penolong Juru Audit, Auditee — setiap satu hanya nampak apa yang relevan.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+								<div class="d-flex p-4 card card-default h-100">
+									<div class="why-badge me-3">LOG</div>
+									<div>
+										<h4 class="text-4-5 font-weight-bold mb-1">Audit Trail Patuh</h4>
+										<p class="text-3-5 mb-0">Setiap tindakan penting direkod untuk akauntabiliti dan pematuhan yang boleh disemak bila-bila masa.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</section>
+
+				<!-- FAQ -->
+				<section id="faq" class="py-5 my-5 p-relative">
+					<div class="container">
+
+						<div class="row">
+							<div class="col">
+
+								<h2 class="text-color-dark font-weight-bold text-10 mb-4-5 text-center">Soalan Lazim</h2>
+								<p class="font-weight-medium text-4-5 line-height-6 negative-ls-05 text-center mb-5">Perkara yang biasa ditanya sebelum demo.</p>
+
+								<div class="accordion accordion-modern-2 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="150" id="accordionFaq">
+									<div class="card card-default">
+										<div class="card-header" id="faqHeadingOne">
+											<h4 class="card-title m-0">
+												<a class="accordion-toggle text-color-dark font-weight-bold collapsed" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="false" aria-controls="faqOne">
+													1 - Di mana data disimpan?
+												</a>
+											</h4>
+										</div>
+										<div id="faqOne" class="collapse" aria-labelledby="faqHeadingOne" data-bs-parent="#accordionFaq">
+											<div class="card-body">
+												<p class="mb-0">Data disimpan dalam infrastruktur yang dikonfigurasi mengikut keperluan agensi anda — termasuk pilihan hosting on-premise atau awan, tertakluk kepada dasar ICT jabatan.</p>
+											</div>
+										</div>
+									</div>
+									<div class="card card-default">
+										<div class="card-header" id="faqHeadingTwo">
+											<h4 class="card-title m-0">
+												<a class="accordion-toggle text-color-dark font-weight-bold collapsed" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+													2 - Bolehkah kami import memo audit lama?
+												</a>
+											</h4>
+										</div>
+										<div id="faqTwo" class="collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#accordionFaq">
+											<div class="card-body">
+												<p class="mb-0">Ya. Dokumen Word sedia ada boleh diimport terus; sistem akan mengekstrak penemuan secara automatik untuk semakan sebelum digunakan.</p>
+											</div>
+										</div>
+									</div>
+									<div class="card card-default">
+										<div class="card-header" id="faqHeadingThree">
+											<h4 class="card-title m-0">
+												<a class="accordion-toggle text-color-dark font-weight-bold collapsed" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">
+													3 - Perlukah kakitangan mahir IT untuk guna sistem ini?
+												</a>
+											</h4>
+										</div>
+										<div id="faqThree" class="collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#accordionFaq">
+											<div class="card-body">
+												<p class="mb-0">Tidak. Antara muka direka dalam Bahasa Melayu penuh dan mengikut aliran kerja audit sedia ada, sesuai untuk kakitangan pelbagai peringkat kemahiran IT.</p>
+											</div>
+										</div>
+									</div>
+									<div class="card card-default">
+										<div class="card-header" id="faqHeadingFour">
+											<h4 class="card-title m-0">
+												<a class="accordion-toggle text-color-dark font-weight-bold collapsed" data-bs-toggle="collapse" data-bs-target="#faqFour" aria-expanded="false" aria-controls="faqFour">
+													4 - Bagaimana dengan kos dan pelesenan?
+												</a>
+											</h4>
+										</div>
+										<div id="faqFour" class="collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#accordionFaq">
+											<div class="card-body">
+												<p class="mb-0">Struktur harga bergantung kepada bilangan pengguna dan keperluan jabatan anda. Maklumat lengkap akan dikongsi semasa sesi demo.</p>
+											</div>
+										</div>
+									</div>
+									<div class="card card-default">
+										<div class="card-header" id="faqHeadingFive">
+											<h4 class="card-title m-0">
+												<a class="accordion-toggle text-color-dark font-weight-bold collapsed" data-bs-toggle="collapse" data-bs-target="#faqFive" aria-expanded="false" aria-controls="faqFive">
+													5 - Bolehkah AuditKita berintegrasi dengan sistem sedia ada jabatan?
+												</a>
+											</h4>
+										</div>
+										<div id="faqFive" class="collapse" aria-labelledby="faqHeadingFive" data-bs-parent="#accordionFaq">
+											<div class="card-body">
+												<p class="mb-0">Ya, integrasi boleh dibincangkan mengikut keperluan — hubungi pasukan kami semasa demo untuk butiran teknikal.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- MINTA DEMO -->
+				<section id="demo" class="bg-gradient py-5 my-5 p-relative z-index-2">
+					<div class="container">
+
+						<div class="row py-5 p-relative">
+							<div class="col-lg-5 text-center text-lg-start">
+
+								<h2 class="text-color-light font-weight-bold text-10 mb-4">Minta Demo Percuma</h2>
+
+								<p class="font-weight-semibold text-color-light text-5 line-height-6 negative-ls-05 mt-4 mb-0">Lihat AuditKita berfungsi dengan data audit sebenar jabatan anda.</p>
+								<p class="font-weight-medium text-color-light opacity-6 text-4 line-height-6 negative-ls-05 mb-4">Isi borang di sebelah — pasukan kami akan menghubungi anda untuk menetapkan sesi demo yang sesuai.</p>
+
+								<ul class="list-unstyled mb-0">
+									<li class="d-flex mb-3">
+										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-color-light me-2 flex-shrink-0 mt-1"><path d="M20 6 9 17l-5-5"/></svg>
+										<span class="text-3-5 text-color-light opacity-8">Sesi demo 30 minit, tiada obligasi</span>
+									</li>
+									<li class="d-flex mb-3">
+										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-color-light me-2 flex-shrink-0 mt-1"><path d="M20 6 9 17l-5-5"/></svg>
+										<span class="text-3-5 text-color-light opacity-8">Dijalankan oleh pasukan yang faham konteks audit sektor awam</span>
+									</li>
+									<li class="d-flex">
+										<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-color-light me-2 flex-shrink-0 mt-1"><path d="M20 6 9 17l-5-5"/></svg>
+										<span class="text-3-5 text-color-light opacity-8">Maklum balas dalam masa 1 hari bekerja</span>
+									</li>
+								</ul>
+
+							</div>
+							<div class="col-lg-7 pt-5 pt-lg-0">
+
+								<div class="bg-light rounded p-4 p-md-5">
+									<div class="alert alert-success d-none" id="demoSuccess">
+										<strong>Terima kasih!</strong> Permintaan demo anda telah diterima. Pasukan kami akan menghubungi anda dalam masa 1 hari bekerja.
+									</div>
+
+									<form id="demoForm" class="row g-3" novalidate>
+										<div class="col-md-6">
+											<label for="f-name" class="form-label font-weight-semibold text-3-5">Nama Penuh <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" id="f-name" name="name" placeholder="cth. Ahmad bin Ismail" autocomplete="name" required>
+											<div class="invalid-feedback">Sila masukkan nama penuh anda.</div>
+										</div>
+										<div class="col-md-6">
+											<label for="f-org" class="form-label font-weight-semibold text-3-5">Nama Organisasi/Agensi <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" id="f-org" name="org" placeholder="cth. Majlis Perbandaran Selayang" autocomplete="organization" required>
+											<div class="invalid-feedback">Sila masukkan nama organisasi.</div>
+										</div>
+										<div class="col-md-6">
+											<label for="f-role" class="form-label font-weight-semibold text-3-5">Jawatan</label>
+											<input type="text" class="form-control" id="f-role" name="role" placeholder="cth. Ketua Audit Dalam" autocomplete="organization-title">
+										</div>
+										<div class="col-md-6">
+											<label for="f-email" class="form-label font-weight-semibold text-3-5">E-mel Rasmi <span class="text-danger">*</span></label>
+											<input type="email" class="form-control" id="f-email" name="email" placeholder="nama@agensi.gov.my" autocomplete="email" required>
+											<div class="invalid-feedback">Sila masukkan e-mel rasmi yang sah.</div>
+										</div>
+										<div class="col-md-6">
+											<label for="f-phone" class="form-label font-weight-semibold text-3-5">Nombor Telefon <span class="text-danger">*</span></label>
+											<input type="tel" class="form-control" id="f-phone" name="phone" placeholder="012-3456789" autocomplete="tel" required>
+											<div class="invalid-feedback">Sila masukkan nombor telefon anda.</div>
+										</div>
+										<div class="col-md-6">
+											<label for="f-size" class="form-label font-weight-semibold text-3-5">Bilangan Kakitangan Audit</label>
+											<select class="form-select" id="f-size" name="size">
+												<option value="">Pilih julat</option>
+												<option value="1-5">1–5</option>
+												<option value="6-15">6–15</option>
+												<option value="16-50">16–50</option>
+												<option value="50+">50+</option>
+											</select>
+										</div>
+										<div class="col-12">
+											<label for="f-msg" class="form-label font-weight-semibold text-3-5">Mesej / Keperluan Tambahan</label>
+											<textarea class="form-control" id="f-msg" name="message" rows="3" placeholder="Ceritakan sedikit tentang proses audit semasa jabatan anda…"></textarea>
+										</div>
+										<div class="col-12 d-flex align-items-center justify-content-between flex-wrap gap-3 mt-2">
+											<span class="text-2 opacity-6">Maklumat anda hanya digunakan untuk menghubungi berkaitan demo ini.</span>
+											<button type="submit" class="btn btn-primary text-color-light text-2 positive-ls-2 py-3 px-5">HANTAR PERMINTAAN DEMO</button>
+										</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</section>
+
+			</div>
+
+			<footer id="footer" class="bg-transparent border-0 mt-lg-5 pt-lg-5">
+				<div class="container py-5">
+					<div class="row align-items-center">
+						<div class="col-lg-5 mb-4 mb-lg-0">
+							<div class="feature-box feature-box-style-2 feature-box-secondary align-items-center">
+								<div class="feature-box-icon feature-box-icon-svg">
+									<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--dark)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>
+								</div>
+								<div class="feature-box-info">
+									<h4 class="font-weight-bold text-color-dark line-height-1 mb-2">Dapatkan Kemas Kini Ciri Baru AuditKita</h4>
+									<p class="line-height-5 line-height-sm-1 mb-0 opacity-8 negative-ls-05 font-weight-medium">Kemas kini produk dan ciri baharu — tiada spam.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="alert alert-success d-none" id="newsletterSuccess">
+								<strong>Terima kasih!</strong> Anda telah didaftarkan untuk kemas kini AuditKita.
+							</div>
+							<form id="newsletterForm" class="form-style-3 mw-100">
+								<div class="input-group">
+									<input class="form-control form-control-sm bg-default border-0 px-4 text-3 box-shadow-none" placeholder="E-mel anda" name="newsletterEmail" id="newsletterEmail" type="email" required>
+									<button class="btn btn-primary text-color-light text-2 positive-ls-3 py-3 px-5" type="submit"><strong class="position-relative top-1">LANGGAN</strong></button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="footer-copyright bg-transparent">
+					<div class="container py-2">
+						<hr class="bg-dark opacity-1 m-0">
+						<div class="row py-4">
+							<div class="col-lg-4 py-4">
+								<a href="#top" class="d-flex align-items-center text-decoration-none mb-3">
+									<img src="assets/auditkita-icon.png" alt="AuditKita" height="40" class="me-2">
+									<span class="font-weight-bold text-color-dark text-4">AuditKita</span>
+								</a>
+								<p class="text-3 opacity-8 negative-ls-05 font-weight-medium mb-0">Platform pengurusan aliran kerja audit dalaman digital, dibina untuk jabatan audit sektor awam Malaysia.</p>
+							</div>
+							<div class="col-lg-2 col-6 py-4">
+								<h5 class="text-color-dark font-weight-bold text-3 text-uppercase positive-ls-1 mb-3">Produk</h5>
+								<nav>
+									<ul class="nav flex-column" id="footerNavProduk">
+										<li class="mb-2"><a class="text-dark text-color-hover-primary font-weight-semibold text-3-5" href="#masalah">Cabaran</a></li>
+										<li class="mb-2"><a class="text-dark text-color-hover-primary font-weight-semibold text-3-5" href="#ciri">Ciri-ciri</a></li>
+										<li class="mb-2"><a class="text-dark text-color-hover-primary font-weight-semibold text-3-5" href="#aliran">Cara Berfungsi</a></li>
+										<li><a class="text-dark text-color-hover-primary font-weight-semibold text-3-5" href="#kenapa">Kenapa AuditKita</a></li>
+									</ul>
+								</nav>
+							</div>
+							<div class="col-lg-2 col-6 py-4">
+								<h5 class="text-color-dark font-weight-bold text-3 text-uppercase positive-ls-1 mb-3">Hubungi</h5>
+								<nav>
+									<ul class="nav flex-column" id="footerNavHubungi">
+										<li class="mb-2"><a class="text-dark text-color-hover-primary font-weight-semibold text-3-5" href="#demo">Minta Demo</a></li>
+										<li><a class="text-dark text-color-hover-primary font-weight-semibold text-3-5" href="mailto:hello@example.gov.my">hello@example.gov.my</a></li>
+									</ul>
+								</nav>
+							</div>
+							<div class="col-lg-2 col-6 py-4">
+								<h5 class="text-color-dark font-weight-bold text-3 text-uppercase positive-ls-1 mb-3">Legal</h5>
+								<nav>
+									<ul class="nav flex-column" id="footerNavLegal">
+										<li class="mb-2"><a class="text-dark text-color-hover-primary font-weight-semibold text-3-5" href="#">Dasar Privasi</a></li>
+										<li><a class="text-dark text-color-hover-primary font-weight-semibold text-3-5" href="#">Terma Penggunaan</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<hr class="bg-dark opacity-1 m-0">
+						<div class="row py-4">
+							<div class="col-md-6 py-2 text-center text-md-start">
+								<p class="mb-0 text-3 opacity-8 negative-ls-05 font-weight-medium">© 2026 AuditKita. Hak cipta terpelihara.</p>
+							</div>
+							<div class="col-md-6 py-2 text-center text-md-end">
+								<p class="mb-0 text-3 opacity-8 negative-ls-05 font-weight-medium">Dibina untuk jabatan audit dalaman sektor awam Malaysia.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+
+		</div>
+
+		<!-- TODO: ganti dengan nombor WhatsApp sebenar sebelum penerbitan -->
+		<a class="wa-fab" id="waFab" target="_blank" rel="noopener"
+		   href="https://wa.me/60XXXXXXXXX?text=Salam%2C%20saya%20berminat%20untuk%20ketahui%20lebih%20lanjut%20tentang%20AuditKita."
+		   aria-label="Hubungi kami melalui WhatsApp">
+			<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.36 4 15c0 2.36.68 4.56 1.86 6.43L4 29l7.76-1.83A11.9 11.9 0 0 0 16.02 27C22.64 27 28 21.64 28 15S22.64 3 16.02 3Zm6.86 16.9c-.3.83-1.7 1.6-2.36 1.7-.6.1-1.36.14-2.2-.14-.5-.16-1.16-.38-2-.75-3.5-1.52-5.8-5.02-5.98-5.26-.17-.24-1.42-1.9-1.42-3.6s.9-2.55 1.23-2.9c.32-.34.7-.43.93-.43.24 0 .47 0 .68.01.22.01.5-.08.79.6.3.7 1 2.44 1.1 2.62.1.18.16.4.03.64-.13.24-.2.4-.4.6-.2.22-.4.5-.58.66-.2.18-.4.38-.18.75.22.37 1 1.63 2.13 2.63 1.46 1.3 2.7 1.7 3.06 1.9.36.18.58.15.8-.1.22-.24.9-1.05 1.14-1.4.24-.36.48-.3.8-.18.32.12 2.05.97 2.4 1.14.36.18.6.27.68.42.08.15.08.85-.22 1.68Z"/></svg>
+		</a>
+
+		<!-- Vendor -->
+		<script src="js/plugins.min.js"></script>
+
+		<!-- Theme Base, Components and Settings -->
+		<script src="js/theme.js"></script>
+
+		<!-- Theme Initialization Files -->
+		<script src="js/theme.init.js"></script>
+
+		<!--
+			Demo form + newsletter: client-side validation only, no backend exists yet.
+			Wire the two forms below to a real endpoint (e.g. POST /minta-demo,
+			POST /newsletter-subscribe) when one is available.
+		-->
+		<script>
+		(function(){
+			function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+			var demoForm = document.getElementById('demoForm');
+			var demoSuccess = document.getElementById('demoSuccess');
+			demoForm.addEventListener('submit', function(e){
+				e.preventDefault();
+				var ok = demoForm.checkValidity() && validEmail(document.getElementById('f-email').value.trim());
+				demoForm.classList.add('was-validated');
+				if (!ok) { return; }
+				demoForm.classList.add('d-none');
+				demoSuccess.classList.remove('d-none');
+			});
+
+			var newsForm = document.getElementById('newsletterForm');
+			var newsSuccess = document.getElementById('newsletterSuccess');
+			newsForm.addEventListener('submit', function(e){
+				e.preventDefault();
+				var email = document.getElementById('newsletterEmail');
+				if (!validEmail(email.value.trim())) { email.focus(); return; }
+				newsForm.classList.add('d-none');
+				newsSuccess.classList.remove('d-none');
+			});
+		})();
+		</script>
+
+	</body>
+</html>
