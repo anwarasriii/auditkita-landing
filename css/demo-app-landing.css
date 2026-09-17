@@ -3,16 +3,6 @@ html, body, .body {
     overflow-x: hidden;
 }
 
-.custom-font-size-1 {
-    font-size: 50px;
-}
-
-@media (min-width: 992px) {
-    .custom-font-size-1 {
-        font-size: 70px;
-    }
-}
-
 .btn-outline {
     border-width: 1px;
 }
