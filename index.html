@@ -49,16 +49,31 @@
 			from the stylesheets above — nothing else is overridden.
 		-->
 		<style>
-			/* Tablet device mockup (hero) — uses assets/tablet-mockup.jpg */
-			.custom-tablet-1{
-				position:relative;width:100%;max-width:460px;margin:0 auto;
-				aspect-ratio:612/344;
-				background-image:url('assets/tablet-mockup.jpg');
-				background-size:100% 100%;background-repeat:no-repeat;
+			/* Tablet device mockup screenshots (hero + alternating content sections) */
+			.device-mockup{
+				width:100%;max-width:420px;margin:0 auto;
 			}
-			.tablet-screen{
-				position:absolute;left:13.5%;top:9%;width:73%;height:83%;
-				overflow:hidden;border-radius:3px;
+			@media (max-width:991px){
+				.device-mockup{max-width:320px}
+			}
+
+			/* Hero heading — smaller on narrow phones so words don't break one per line */
+			.custom-font-size-1{font-size:34px}
+			@media (min-width:400px){
+				.custom-font-size-1{font-size:40px}
+			}
+			@media (min-width:576px){
+				.custom-font-size-1{font-size:46px}
+			}
+			@media (min-width:992px){
+				.custom-font-size-1{font-size:70px}
+			}
+
+			/* Decorative "AK" stroke text behind the hero heading — only fits without
+			   overlapping the body copy once the hero has a large screen's extra width */
+			.custom-stroke-text-effect-1{display:none}
+			@media (min-width:992px){
+				.custom-stroke-text-effect-1{display:inline}
 			}
 
 			/* "Kenapa AuditKita" letter badges (text mark instead of an icon image) */
@@ -96,6 +111,26 @@
 			.feature-box-icon-svg{
 				width:auto;height:auto;flex:none;background:transparent;padding:0;top:0;margin-right:.5rem;
 			}
+
+			/* Video showcase ("Cara Ia Berfungsi") — a full-width dark panel replacing
+			   the old call-to-action layout, whose flex column shrank the video down
+			   to the width of the heading text instead of filling the available space */
+			.video-showcase{
+				background:var(--dark--200);border-radius:32px;
+			}
+			.video-showcase-eyebrow{
+				position:relative;background:rgba(255,255,255,.08);color:#fff;font-size:.8rem;font-weight:700;
+				letter-spacing:.08em;text-transform:uppercase;padding:.5rem 1.1rem;border-radius:99px;
+			}
+			.video-showcase-frame{
+				position:relative;max-width:860px;border-radius:20px;overflow:hidden;
+				box-shadow:0 30px 70px -20px rgba(66,70,253,.5), 0 0 0 1px rgba(255,255,255,.08);
+			}
+			.video-showcase-glow{
+				position:absolute;border-radius:50%;filter:blur(70px);opacity:.35;pointer-events:none;
+			}
+			.video-showcase-glow-1{width:280px;height:280px;background:var(--primary);top:-90px;left:-70px}
+			.video-showcase-glow-2{width:320px;height:320px;background:var(--secondary);bottom:-110px;right:-70px}
 
 			/* WhatsApp floating button — no equivalent component in the Porto theme */
 			.wa-fab{
@@ -185,11 +220,8 @@
 							</div>
 							<div class="col-lg-4 pt-5 pt-lg-0 text-center">
 
-								<div class="p-relative m-auto" style="max-width:460px;">
-									<!-- ASSET NOTE: swap assets/tablet-mockup.jpg for your own tablet mockup with the dashboard content baked in, or fill .tablet-screen with your own content. -->
-									<div class="custom-tablet-1 reveal appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="300">
-										<div class="tablet-screen"></div>
-									</div>
+								<div class="reveal appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="300">
+									<img src="assets/tablet-1.png" class="img-fluid device-mockup" alt="Skrin tugasan penemuan audit dalam AuditKita, dipaparkan pada tablet">
 								</div>
 
 							</div>
@@ -235,25 +267,29 @@
 							</div>
 						</div>
 
-				<section class="call-to-action custom-call-to-action call-to-action-dark mb-5">
-					<div class="container">
-						<div class="row p-3 p-md-0">
-							<div class="col-lg-8">
-								<div class="call-to-action-content mx-auto m-lg-0">
-									<h3 class="mb-3 font-weight-semi-bold">Proses penggunaan AuditKita</h3>
-									<iframe width="800" height="315" src="https://www.youtube.com/embed/1-izXBhkiHw?si=FFdjjCbIMFkguw1H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-								</div>
-							</div>
-							<div class="col-lg-4 text-center text-lg-start">
-								<div class="call-to-action-btn mx-auto mt-0 mt-md-4 m-lg-0">
-									<a href="#demo" class="d-inline-flex align-items-center btn btn-gradient text-uppercase positive-ls-2 font-weight-bold text-2 btn-py-3 px-3 px-sm-5">
-										Minta Demo
-									</a>
-								</div>
+				<div class="container mb-5">
+					<div class="video-showcase text-center p-4 p-md-5 position-relative overflow-hidden">
+						<div class="video-showcase-glow video-showcase-glow-1"></div>
+						<div class="video-showcase-glow video-showcase-glow-2"></div>
+
+						<span class="video-showcase-eyebrow d-inline-flex align-items-center mb-3">
+							<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" class="me-2"><path d="M8 5v14l11-7z"/></svg>
+							Video Demo
+						</span>
+
+						<h3 class="text-color-light font-weight-semi-bold mb-4">Proses Penggunaan AuditKita</h3>
+
+						<div class="video-showcase-frame mx-auto">
+							<div class="ratio ratio-16x9">
+								<iframe src="https://www.youtube.com/embed/1-izXBhkiHw?si=FFdjjCbIMFkguw1H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 							</div>
 						</div>
+
+						<a href="#demo" class="d-inline-flex align-items-center btn btn-gradient text-uppercase positive-ls-2 font-weight-bold text-2 btn-py-3 px-5 mt-4">
+							Minta Demo
+						</a>
 					</div>
-				</section>
+				</div>
 
 						<div class="row">
 							<div class="col-12 text-center">
@@ -496,8 +532,7 @@
 
 						<div class="row align-items-center pb-5 pb-lg-0 mb-3 mb-lg-0">
 							<div class="col-lg-5 text-center appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="100">
-								<!-- ASSET NOTE: placeholder tablet mockup — swap for your own tablet content image when ready -->
-								<img src="assets/tablet-mockup.jpg" class="img-fluid" alt="">
+								<img src="assets/tablet-2.png" class="img-fluid device-mockup" alt="Dashboard audit dalam AuditKita menunjukkan status penemuan mengikut jabatan">
 							</div>
 							<div class="col-lg-7 text-center text-lg-start appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="100">
 
@@ -525,8 +560,7 @@
 
 							</div>
 							<div class="col-lg-5 text-center appear-animation" data-appear-animation="fadeInRightShorterPlus" data-appear-animation-delay="100">
-								<!-- ASSET NOTE: placeholder tablet mockup — swap for your own tablet content image when ready -->
-								<img src="assets/tablet-mockup.jpg" class="img-fluid mt-4 mt-lg-0" alt="">
+								<img src="assets/tablet-3.png" class="img-fluid device-mockup mt-4 mt-lg-0" alt="Rekod kelulusan dan tugasan penemuan audit dalam AuditKita">
 							</div>
 						</div>
 
@@ -676,7 +710,7 @@
 										</div>
 										<div id="faqFive" class="collapse" aria-labelledby="faqHeadingFive" data-bs-parent="#accordionFaq">
 											<div class="card-body">
-												<p class="mb-0">Ya, integrasi boleh dibincangkan mengikut keperluan — hubungi pasukan kami butiran lebih lanjut.</p>
+												<p class="mb-0">Ya, integrasi boleh dibincangkan mengikut keperluan — hubungi pasukan kami untuk butiran lebih lanjut.</p>
 											</div>
 										</div>
 									</div>
@@ -786,7 +820,7 @@
 								</div>
 								<div class="feature-box-info">
 									<h4 class="font-weight-bold text-color-dark line-height-1 mb-2">Dapatkan Kemas Kini Ciri Baru AuditKita</h4>
-									<p class="line-height-5 line-height-sm-1 mb-0 opacity-8 negative-ls-05 font-weight-medium">Kemas kini produk dan ciri baharu — tiada spam.</p>
+									<p class="line-height-5 line-height-sm-1 mb-0 opacity-8 negative-ls-05 font-weight-medium">Kemas kini produk dan ciri baharu.</p>
 								</div>
 							</div>
 						</div>
@@ -812,7 +846,7 @@
 									<img src="assets/auditkita-icon.png" alt="AuditKita" height="40" class="me-2">
 									<span class="font-weight-bold text-color-dark text-4">AuditKita</span>
 								</a>
-								<p class="text-3 opacity-8 negative-ls-05 font-weight-medium mb-0">Platform pengurusan aliran kerja audit dalaman digital, dibina untuk jabatan audit sektor awam Malaysia.</p>
+								<p class="text-3 opacity-8 negative-ls-05 font-weight-medium mb-0">Platform pengurusan aliran kerja audit dalaman,</br> dibina untuk jabatan audit sektor awam Malaysia.</p>
 							</div>
 							<div class="col-lg-2 col-6 py-4">
 								<h5 class="text-color-dark font-weight-bold text-3 text-uppercase positive-ls-1 mb-3">Produk</h5>
