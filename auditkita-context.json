@@ -1,0 +1,295 @@
+{
+  "product": {
+    "name": "AuditKita",
+    "tagline": "Sistem Pengurusan Audit Dalaman",
+    "one_liner": "Audit dalaman jabatan anda, dalam satu sistem.",
+    "sub_headline": "Muat naik memo, semak penemuan, hantar tugasan dan pantau respons dalam satu aliran kerja.",
+    "meta_description": "AuditKita — import memo, tugaskan penemuan, jejak respons, automatik dari mula hingga selesai. Dibina untuk audit dalaman sektor awam Malaysia.",
+    "keywords": ["audit dalaman", "sistem audit", "dashboard audit", "sektor awam", "PBT"],
+    "language": "Bahasa Malaysia (ms)",
+    "category": "Internal audit workflow / case management SaaS for the Malaysian public sector",
+    "current_customer_reference": "Majlis Perbandaran Selayang (MPS) — shown as 'Digunakan Oleh' logo on hero",
+    "existing_demo_video": "https://www.youtube.com/embed/1-izXBhkiHw (titled 'Proses penggunaan AuditKita', embedded mid-page)"
+  },
+
+  "audience": {
+    "primary_users": [
+      "Pentadbir Sistem (System Admin)",
+      "Pengarah JAD (Head of Internal Audit Dept, approver)",
+      "Juru Audit (Auditor)",
+      "Penolong Juru Audit (Assistant Auditor)",
+      "Auditee (department staff who respond to findings)"
+    ],
+    "sector": "Malaysian public sector — PBT (local councils), ministries, statutory bodies",
+    "buyer_persona": "Ketua Audit Dalam / head of internal audit at a government agency, currently running audits via Word memos and email"
+  },
+
+  "problem_before_auditkita": {
+    "section_title": "Cabaran Sedia Ada",
+    "subtitle": "Kerja Audit Masih Banyak Bergantung Pada Word dan E-mel",
+    "pain_points": [
+      {
+        "title": "Memo hilang dalam e-mel",
+        "description": "Memo dihantar melalui e-mel dan penemuan perlu dirujuk semula apabila membuat tindakan susulan."
+      },
+      {
+        "title": "Tiada penjejakan status",
+        "description": "Juruaudit perlu menyemak e-mel dan dokumen untuk mengetahui jabatan yang sudah memberi respons dan yang masih belum bertindak."
+      },
+      {
+        "title": "Proses ekstrak manual",
+        "description": "Kandungan daripada memo Word perlu dipindahkan ke rekod atau dokumen lain sebelum boleh digunakan untuk pemantauan."
+      },
+      {
+        "title": "Tiada rekod akauntabiliti",
+        "description": "Maklum balas, dokumen sokongan dan perubahan status boleh berada di tempat yang berbeza, menyukarkan semakan semula."
+      }
+    ]
+  },
+
+  "how_it_works": {
+    "section_title": "Cara Ia Berfungsi",
+    "subtitle": "Tujuh langkah untuk membawa satu penemuan daripada memo hingga penutupan.",
+    "supporting_line": "Setiap penemuan melalui laluan yang sama dari mula hingga akhir — jelas, tersusun, dan boleh disemak pada bila-bila masa.",
+    "steps": [
+      { "step": 1, "name": "Import", "actor": "Juru Audit", "description": "Juru Audit muat naik memo Word." },
+      { "step": 2, "name": "Semak", "actor": "System / Auditor", "description": "Kandungan disemak & disunting." },
+      { "step": 3, "name": "Lulus", "actor": "Pengarah JAD", "description": "Pengarah JAD meluluskan memo." },
+      { "step": 4, "name": "Tugaskan", "actor": "System", "description": "Penemuan ditugaskan ke jabatan." },
+      { "step": 5, "name": "Respons", "actor": "Auditee", "description": "Auditee respons secara kolaboratif." },
+      { "step": 6, "name": "Ulasan", "actor": "Juru Audit", "description": "Juru Audit menilai dengan lampu isyarat (traffic-light rating)." },
+      { "step": 7, "name": "Selesai", "actor": "Pengarah JAD", "description": "Pengarah JAD lulus penutupan." }
+    ]
+  },
+
+  "stats": [
+    { "value": 7, "label": "Peringkat dari penemuan hingga selesai" },
+    { "value": 5, "label": "Peranan akses dengan paparan mengikut tugas" },
+    { "value": 4, "label": "Penyedia AI disokong" }
+  ],
+
+  "features": {
+    "section_title": "Ciri-ciri Utama",
+    "subtitle": "Ciri-ciri yang tersedia dalam versi semasa AuditKita.",
+    "list": [
+      {
+        "name": "Import Memo Automatik",
+        "description": "Muat naik Word — sistem ekstrak setiap penemuan, perenggan, jadual dan imej secara automatik.",
+        "icon_concept": "upload/import arrow into tray"
+      },
+      {
+        "name": "Bantuan AI (AI Assist)",
+        "description": "Cadangan automatik untuk kategori, risiko, jabatan bertanggungjawab & tindakan pembetulan — kelulusan tetap manual.",
+        "icon_concept": "sparkle / settings-star (AI)"
+      },
+      {
+        "name": "Tugasan Jabatan",
+        "description": "Satu penemuan boleh ditugaskan kepada lebih daripada satu jabatan secara serentak, dengan tarikh akhir tersendiri.",
+        "icon_concept": "network / connected nodes (multi-department assignment)"
+      },
+      {
+        "name": "Pusat Tugasan Peribadi",
+        "description": "Memaparkan tindakan tertunggak yang relevan kepada peranan anda sahaja.",
+        "icon_concept": "personal checklist / document with checkmark"
+      },
+      {
+        "name": "Notifikasi Automatik",
+        "description": "Makluman dalam-aplikasi & e-mel pada setiap peringkat aliran kerja.",
+        "icon_concept": "bell notification"
+      },
+      {
+        "name": "Dashboard Pentadbir",
+        "description": "Statistik pengguna, kesihatan sistem, analitik trafik dan penggunaan AI.",
+        "icon_concept": "bar chart / analytics dashboard"
+      }
+    ]
+  },
+
+  "collaboration_and_transparency": [
+    {
+      "section_title": "Semua Respons Jabatan, Dalam Satu Tempat",
+      "subtitle": "Bila penemuan ditugaskan kepada jabatan, setiap auditee respons terus dalam sistem.",
+      "supporting_line": "Tiada rantaian e-mel bersilang, tiada salinan dokumen berulang — semuanya kekal dalam satu penemuan.",
+      "cta": "LIHAT CIRI-CIRI"
+    },
+    {
+      "section_title": "Ketelusan & Audit Trail Penuh",
+      "subtitle": "Setiap kelulusan, tugasan dan respons direkod.",
+      "supporting_line": "Sedia disemak pada bila-bila masa oleh juruaudit luar atau jawatankuasa — tiada rekod yang hilang.",
+      "cta": "LIHAT KENAPA AUDITKITA"
+    }
+  ],
+
+  "trust_principle": {
+    "section_title": "Prinsip Kami",
+    "headline": "AI membantu cadangkan, Anda yang meluluskan. Setiap keputusan audit kekal milik juruaudit anda.",
+    "supporting_line": "Cadangan kategori, risiko dan tindakan pembetulan daripada AI Assist sentiasa memerlukan kelulusan manual sebelum digunakan.",
+    "style_note": "Dark full-width statement band — used as a brand trust/positioning moment, good candidate for a video mid-roll statement card."
+  },
+
+  "why_auditkita": {
+    "section_title": "Kenapa AuditKita",
+    "subtitle": "Dibina berdasarkan keperluan kerja audit sektor awam Malaysia.",
+    "reasons": [
+      {
+        "badge": "BM",
+        "title": "Data Di Bawah Kawalan Organisasi",
+        "description": "AuditKita boleh dipasang pada infrastruktur organisasi atau persekitaran awan yang dipersetujui."
+      },
+      {
+        "badge": "PBT",
+        "title": "Dibina Khusus Untuk Audit Sektor Awam",
+        "description": "Aliran kerja mengikut struktur sebenar PBT, kementerian dan badan berkanun — bukan pelan generik korporat."
+      },
+      {
+        "badge": "RBAC",
+        "title": "Akses Mengikut Peranan",
+        "description": "Pentadbir Sistem, Pengarah JAD, Juru Audit, Penolong Juru Audit dan Auditee mempunyai akses yang berbeza mengikut tugas masing-masing."
+      },
+      {
+        "badge": "LOG",
+        "title": "Rekod Setiap Tindakan",
+        "description": "Lihat siapa yang membuat perubahan, tindakan yang dibuat dan bila ia dilakukan."
+      }
+    ]
+  },
+
+  "faq": {
+    "section_title": "Soalan Lazim",
+    "subtitle": "Perkara yang biasa ditanya sebelum demo.",
+    "items": [
+      {
+        "question": "Di mana data disimpan?",
+        "answer": "Data disimpan dalam infrastruktur yang dikonfigurasi mengikut keperluan agensi anda — termasuk pilihan hosting on-premise atau cloud, tertakluk kepada dasar ICT jabatan."
+      },
+      {
+        "question": "Bolehkah kami import memo audit lama?",
+        "answer": "Ya. Dokumen Word sedia ada boleh diimport terus, sistem akan mengekstrak penemuan secara automatik untuk semakan sebelum digunakan."
+      },
+      {
+        "question": "Perlukah kakitangan mahir IT untuk guna sistem ini?",
+        "answer": "Tidak. Sistem ini direka mengikut aliran kerja audit sedia ada, sesuai untuk kakitangan pelbagai peringkat kemahiran IT."
+      },
+      {
+        "question": "Bagaimana dengan kos dan pelesenan?",
+        "answer": "Struktur harga bergantung kepada bilangan pengguna dan keperluan jabatan anda. Maklumat lengkap akan dikongsi semasa sesi demo."
+      },
+      {
+        "question": "Bolehkah AuditKita berintegrasi dengan sistem sedia ada jabatan?",
+        "answer": "Ya, integrasi boleh dibincangkan mengikut keperluan — hubungi pasukan kami butiran lebih lanjut."
+      }
+    ]
+  },
+
+  "calls_to_action": {
+    "primary_cta_label": "Minta Demo",
+    "cta_ribbon": {
+      "headline": "Sedia digunakan tanpa pemasangan rumit.",
+      "supporting_line": "Mula dengan memo audit sedia ada anda — pasukan kami bantu sediakan dalam satu sesi onboarding."
+    },
+    "demo_section": {
+      "section_title": "Minta Demo Percuma",
+      "headline": "Lihat AuditKita berfungsi dengan data audit sebenar jabatan anda.",
+      "supporting_line": "Isi borang di sebelah — pasukan kami akan menghubungi anda untuk menetapkan sesi demo yang sesuai.",
+      "reassurance_bullets": [
+        "Sesi demo 30 minit, tiada obligasi",
+        "Dijalankan oleh pasukan yang faham konteks audit sektor awam",
+        "Maklum balas dalam masa 1 hari bekerja"
+      ],
+      "form_fields": [
+        { "label": "Nama Penuh", "required": true },
+        { "label": "Nama Organisasi/Agensi", "required": true },
+        { "label": "Jawatan", "required": false },
+        { "label": "E-mel Rasmi", "required": true, "placeholder_domain": "nama@agensi.gov.my" },
+        { "label": "Nombor Telefon", "required": true },
+        { "label": "Bilangan Kakitangan Audit", "required": false, "options": ["1-5", "6-15", "16-50", "50+"] },
+        { "label": "Mesej / Keperluan Tambahan", "required": false }
+      ],
+      "submit_button_label": "HANTAR PERMINTAAN DEMO"
+    },
+    "newsletter": {
+      "headline": "Dapatkan Kemas Kini Ciri Baru AuditKita",
+      "supporting_line": "Kemas kini produk dan ciri baharu — tiada spam.",
+      "button_label": "LANGGAN"
+    }
+  },
+
+  "hero_supporting_claims": [
+    ".docx → rekod digital tanpa menaip semula",
+    "5 peranan kawalan akses"
+  ],
+
+  "contact": {
+    "email_placeholder": "hello@example.gov.my (placeholder, not final)",
+    "whatsapp": "placeholder number wa.me/60XXXXXXXXX — NOT a real number yet, needs replacing before launch",
+    "footer_tagline": "Platform pengurusan aliran kerja audit dalaman digital, dibina untuk jabatan audit sektor awam Malaysia.",
+    "copyright": "© 2026 AuditKita. Hak cipta terpelihara.",
+    "footer_secondary_line": "Dibina untuk jabatan audit dalaman sektor awam Malaysia."
+  },
+
+  "navigation": {
+    "items": ["Cabaran", "Cara Berfungsi", "Ciri-ciri", "Kenapa AuditKita", "Soalan Lazim"],
+    "header_cta": "Minta Demo"
+  },
+
+  "brand_visual_identity": {
+    "logo": {
+      "file": "assets/auditkita-icon.png",
+      "description": "Monogram logo combining an 'O' and 'K'-like interlocking swoosh forming an infinity/checkmark shape. Colors: navy blue (~#1e3a5f dark blue) with a gold/mustard accent stroke on the upper-right swoosh.",
+      "note": "Logo brand colors (navy + gold) differ from the website's UI theme colors (blue/purple) below — worth reconciling or intentionally treating as a distinct 'mark' color vs 'UI' color in the video."
+    },
+    "theme_colors": {
+      "primary": "#4246fd (blue-violet)",
+      "secondary": "#881cf9 (purple)",
+      "tertiary": "#f5f3fb (very light lavender, used for badge backgrounds)",
+      "quaternary_dark": "#222529 (near-black, used for dark sections/text)",
+      "accent_danger_icons": "#d9534f (red, used for 'problem' icons in Cabaran section)",
+      "accent_warning": "#e0a100 (amber, used sparingly e.g. checklist checkmark)",
+      "whatsapp_green": "#25D366"
+    },
+    "gradient_usage": "btn-gradient buttons and a bg-gradient demo-form section use primary→secondary (blue→purple) gradient.",
+    "typography": {
+      "primary_font": "Poppins (300,400,500,600,700,800) — used for all UI text, headings, body",
+      "accent_font": "Shadows Into Light — loaded but not visibly used in current markup (handwriting-style accent font, available if needed for a personal/annotated touch)"
+    },
+    "design_style": "Clean corporate/government SaaS aesthetic. Generous whitespace, rounded cards (card-default), circular numbered step badges, thin-stroke line-icon SVGs (stroke-width 1.4-2, no fills) in primary blue, soft rounded-square icon tiles for 'why us' badges, dark full-bleed statement band for the trust/principle message, gradient CTA sections.",
+    "imagery": {
+      "hero_mockup": "Tablet device frame (assets/tablet-mockup.jpg) with an empty/placeholder transparent screen — NOTE: this is a blank placeholder mockup, not real product UI. It needs to be replaced with an actual dashboard screenshot/UI composite before it's launch-ready.",
+      "secondary_mockups": "Same blank tablet-mockup.jpg reused in the 'Semua Respons Jabatan' and 'Ketelusan & Audit Trail' sections — also placeholders.",
+      "client_logo": "assets/mps-logo.png — Majlis Perbandaran Selayang logo, shown under 'Digunakan Oleh:' as social proof.",
+      "icon_style": "All feature/problem/stat icons are inline hand-drawn-style line SVGs (no icon font/library), consistent 1.4-2px stroke, rounded caps/joins."
+    },
+    "layout_pattern": "Long single-page scroller with anchor-linked nav: Hero → CTA ribbon → How it works (7-step flow + embedded YouTube walkthrough) → Stats counters → Problems (4-card grid) → Features (zigzag 2-col feature list) → Alternating image/text blocks (collaboration, audit trail) → Dark 'Prinsip Kami' statement band → Why Us (4 badge cards) → FAQ accordion → Demo request form (gradient bg) → Footer with newsletter."
+  },
+
+  "tone_and_positioning": {
+    "voice": "Formal, reassuring, government-appropriate Bahasa Malaysia. Emphasizes control, accountability, transparency, and human oversight over AI ('AI mencadang, manusia meluluskan').",
+    "key_positioning_pillars": [
+      "Digitizes an existing Word/email-based audit workflow rather than replacing it with something unfamiliar",
+      "Built specifically for Malaysian public-sector audit structures (PBT/kementerian/badan berkanun), not generic corporate audit software",
+      "Data sovereignty — customer controls hosting (on-prem or approved cloud)",
+      "Full accountability/audit-trail — every approval, assignment, response is logged",
+      "AI-assisted but human-approved — AI never has final say on audit findings",
+      "Role-based access for 5 distinct user types",
+      "Low friction adoption — import existing Word memos, one onboarding session, no complex installation"
+    ],
+    "differentiators_to_highlight_in_video": [
+      "7-step guided workflow: Import → Semak → Lulus → Tugaskan → Respons → Ulasan → Selesai",
+      "Automatic Word memo parsing (findings, paragraphs, tables, images extracted automatically)",
+      "AI Assist suggests category/risk/responsible dept/corrective action, but requires manual approval",
+      "One finding can be assigned to multiple departments simultaneously with individual deadlines",
+      "Traffic-light (lampu isyarat) style review/rating of responses",
+      "Personal task center per role",
+      "Full audit trail for external auditors/committees to review anytime"
+    ]
+  },
+
+  "known_gaps_and_placeholders": [
+    "Hero and content-block tablet images are blank/placeholder mockups — no real product screenshots exist yet in this repo; a video would need actual UI captures or a designed dashboard mock",
+    "WhatsApp number is a placeholder (60XXXXXXXXX) and not real",
+    "Contact email (hello@example.gov.my) is a placeholder",
+    "Favicon files not yet added",
+    "Demo and newsletter forms are front-end only (no backend wired yet)",
+    "An existing product walkthrough video is already embedded from YouTube (id 1-izXBhkiHw) — could be source material or reference for pacing/content of a new product video"
+  ]
+}
